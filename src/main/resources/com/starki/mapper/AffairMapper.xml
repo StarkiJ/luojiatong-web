@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.starki.mapper.AffairMapper">
+
+    <!--条件查询-->
+    <select id="list" resultType="com.starki.pojo.Affair">
+        select *
+        from affair
+        <where>
+            <if test="type != null and name != ''">
+                type = #{type}
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="place != null and place != ''">
+                and place like concat('%', #{place}, '%')
+            </if>
+            <if test="content != null and content != ''">
+                and content like concat('%', #{content}, '%')
+            </if>
+            <if test="startTime != null">
+                and endTime > #{startTime}
+            </if>
+            <if test="endTime != null">
+                and #{endTime} > startTime
+            </if>
+        </where>
+        order by startTime asc
+    </select>
+
+    <!--批量删除事务 (1, 2, 3)-->
+    <delete id="delete">
+        delete
+        from affair
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--更新事务-->
+    <update id="update">
+        update affair
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="place != null and place != ''">
+                place = #{place},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="startTime != null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
