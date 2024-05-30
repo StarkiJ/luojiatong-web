@@ -10,11 +10,11 @@
         <Sidebar />
         <el-main>
             <el-row :gutter="10" class="homepage-main">
-                <el-col :lg="8" class="left">
+                <el-col :xl="8" :lg="16" :md="12" class="left">
                     <!-- 左侧内容：待办清单/本日日程 -->   
                     <DayView />
                 </el-col>
-                <el-col :lg="16" :md="12" class="bg-light-100">
+                <el-col :xl="16" :lg="8" :md="12" class="bg-light-100">
                     <!-- 右侧内容：月历 -->
                     <MonthView />
                 </el-col>
@@ -48,12 +48,14 @@
         font-bold
         text-4xl
         items-center
+        min-w-screen
         ;
     }
     .homepage-main {
         @apply
         bg-light-100
         min-h-screen
+        min-w-screen
         ;
     }
     
