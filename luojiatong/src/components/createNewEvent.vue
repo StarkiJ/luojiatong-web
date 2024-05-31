@@ -35,6 +35,15 @@
                 </el-col>
             </el-form-item>
 
+            <el-form-item label="类型">
+                <el-select v-model="form.type">
+                    <el-option label="课程" value="课程" />
+                    <el-option label="运动" value="运动" />
+                    <el-option label="图书馆" value="图书馆" />
+                    <el-option label="其他" value="其他" />
+                </el-select>
+            </el-form-item>
+
             <el-form-item label="地点">
                 <el-input v-model="form.location" />
             </el-form-item>
