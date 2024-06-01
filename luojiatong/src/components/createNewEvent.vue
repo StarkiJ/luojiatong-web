@@ -16,8 +16,8 @@
                         v-model="form.startTime"
                         type="datetime"
                         placeholder="开始时间"
-                        format="YYYY-MM-DD hh:mm:ss"
-                        value-format="YYYY-MM-DD hh:mm:ss"
+                        format="YYYY-MM-DD HH:mm:ss"
+                        value-format="YYYY-MM-DD HH:mm:ss"
                         style="width: 100%"
                     />
                 </el-col>
@@ -29,8 +29,8 @@
                         v-model="form.endTime"
                         type="datetime"
                         placeholder="结束时间"
-                        format="YYYY-MM-DD hh:mm:ss"
-                        value-format="YYYY-MM-DD hh:mm:ss"
+                        format="YYYY-MM-DD HH:mm:ss"
+                        value-format="YYYY-MM-DD HH:mm:ss"
                         style="width: 100%"
                     />
                 </el-col>
