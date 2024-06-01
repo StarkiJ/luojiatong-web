@@ -10,7 +10,7 @@
         <div id="TimeLine">
             <el-timeline style="max-width: 600px">
                 <el-timeline-item placement="top" v-for="(event, index) in todayEvents" :key="index"
-                    :timestamp="event.startTime" @click.native="showEventDetail(event)">
+                    :timestamp="showTime(event.startTime)" @click.native="showEventDetail(event)">
                     <el-card style="max-width: 480px" :class="getCardClass(event.type)">
                         <el-row>
                             <el-col :span="8">
@@ -23,8 +23,8 @@
                                     <el-icon style="vertical-align: middle">
                                         <Clock />
                                     </el-icon>
-                                    <span style="vertical-align: middle" class='p-2'>{{ event.startTime }} - {{
-                                        event.endTime }}</span>
+                                    <span style="vertical-align: middle" class='p-2'>{{ showTime(event.startTime )}} - {{
+                                        showTime(event.endTime) }}</span>
                                 </div>
                                 <div class='p-1'>
                                     <el-icon style="vertical-align: middle">
@@ -47,7 +47,7 @@
                 <Clock />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
-                {{ selectedEvent?.startTime }} - {{ selectedEvent?.endTime }}
+                {{ showTime(selectedEvent?.startTime) }} - {{ showTime(selectedEvent?.endTime) }}
             </span>
         </div>
         <div class='p-1'>
@@ -184,6 +184,10 @@ const showEventDetail = (event) => {
     selectedEvent.value = event;
     eventDetailVisible.value = true;
 };
+
+const showTime=(time)=>{
+    return time.split("T").join(" ");
+}
 
 </script>
 

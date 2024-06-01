@@ -29,7 +29,7 @@
                 <Clock />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
-                {{ selectedEvent?.startTime }} - {{ selectedEvent?.endTime }}
+                {{ showTime(selectedEvent?.startTime) }} - {{ showTime(selectedEvent?.endTime) }}
             </span>
         </div>
         <div class='p-1'>
@@ -193,6 +193,11 @@ const comp = (event, date) => {
     //console.log((Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end)));
     return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
 }
+
+const showTime=(time)=>{
+    return time.split("T").join(" ");
+}
+
 </script>
 
 <style scoped>
