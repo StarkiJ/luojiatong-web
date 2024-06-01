@@ -12,7 +12,7 @@
                 {{ data.day.split('-').slice(1).join('-') }}
             </p>
             <el-scrollbar max-height="calc(100% - 15px)">
-                <p v-for="(event, index) in getEventsByDate(data.day)" :key="index" class="EventInCalendar">
+                <p v-for="(event, index) in getEventsByDate(data.day)" :key="index" :class="getCardClass(event.type)">
                 <div @click.native="showEventDetail(event)">
                     {{ event.name }}
                 </div>
@@ -34,6 +34,14 @@
         </div>
         <div class='p-1'>
             <el-icon style="vertical-align: middle">
+                <Menu />
+            </el-icon>
+            <span style="vertical-align: middle" class='p-2'>
+                {{ eventType(selectedEvent?.type) }}
+            </span>
+        </div>
+        <div class='p-1'>
+            <el-icon style="vertical-align: middle">
                 <Location />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
@@ -45,7 +53,7 @@
                 <MoreFilled />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
-                {{ selectedEvent?.discription }}
+                {{ selectedEvent?.content }}
             </span>
         </div>
 
@@ -58,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { getAffairs } from '@/api/affairs.js';
 //import { getEventsByDate } from '@/components/showEventDetail.js';
 
@@ -83,11 +91,41 @@ import { getAffairs } from '@/api/affairs.js';
 //     },
 // ])
 
+const eventType = (type) => {
+    switch (type) {
+        case 1:
+            return '课程';
+        case 2:
+            return '运动';
+        case 3:
+            return '图书馆';
+        case 4:
+            return '其他';
+        default:
+            return '未知';
+    }
+}
+
+const getCardClass = (type) => {
+    switch (type) {
+        case 1:
+            return 'type1';
+        case 2:
+            return 'type2';
+        case 3:
+            return 'type3';
+        case 4:
+            return 'type4';
+        default:
+            return '';
+    }
+};
+
 let affairs = ref([
     {
         id: 12,
         type: 3,
-        name: "001",
+        name: "数学",
         place: "图",
         content: "学习",
         startTime: "2024-06-21T15:00:00",
@@ -96,7 +134,7 @@ let affairs = ref([
     {
         id: 4,
         type: 2,
-        name: "002",
+        name: "羽毛球",
         place: "体育馆",
         content: null,
         startTime: "2024-06-23T15:00:00",
@@ -165,5 +203,26 @@ const comp = (event, date) => {
 .EventInCalendar {
     @apply 
     bg-teal-100 rounded-default p-1 my-1;
+}
+
+.type1 {
+    @apply
+    bg-cyan-200
+    rounded-default p-1 my-1;
+}
+.type2 {
+    @apply
+    bg-amber-100
+    rounded-default p-1 my-1;
+}
+.type3 {
+    @apply
+    bg-green-100
+    rounded-default p-1 my-1;
+}
+.type4 {
+    @apply
+    bg-gray-200
+    rounded-default p-1 my-1;
 }
 </style>

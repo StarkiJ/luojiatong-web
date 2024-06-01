@@ -11,7 +11,7 @@
             <el-timeline style="max-width: 600px">
                 <el-timeline-item placement="top" v-for="(event, index) in todayEvents" :key="index"
                     :timestamp="event.startTime" @click.native="showEventDetail(event)">
-                    <el-card style="max-width: 480px">
+                    <el-card style="max-width: 480px" :class="getCardClass(event.type)">
                         <el-row>
                             <el-col :span="8">
                                 <div class="text-2xl font-bold p-2">
@@ -30,7 +30,7 @@
                                     <el-icon style="vertical-align: middle">
                                         <Location />
                                     </el-icon>
-                                    <span style="vertical-align: middle" class='p-2'>{{ event.location }}</span>
+                                    <span style="vertical-align: middle" class='p-2'>{{ event.place }}</span>
                                 </div>
                             </el-col>
                         </el-row>
@@ -52,10 +52,18 @@
         </div>
         <div class='p-1'>
             <el-icon style="vertical-align: middle">
+                <Menu />
+            </el-icon>
+            <span style="vertical-align: middle" class='p-2'>
+                {{ eventType(selectedEvent?.type) }}
+            </span>
+        </div>
+        <div class='p-1'>
+            <el-icon style="vertical-align: middle">
                 <Location />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
-                {{ selectedEvent?.location }}
+                {{ selectedEvent?.place }}
             </span>
         </div>
         <div class='p-1'>
@@ -63,7 +71,7 @@
                 <MoreFilled />
             </el-icon>
             <span style="vertical-align: middle" class='p-2'>
-                {{ selectedEvent?.discription }}
+                {{ selectedEvent?.content }}
             </span>
         </div>
 
@@ -85,7 +93,7 @@ let todayEvents = ref([
     {
         id: 12,
         type: 3,
-        name: "日历001",
+        name: "数学",
         place: "图",
         content: "学习",
         startTime: "2024-06-01T15:00:00",
@@ -94,7 +102,7 @@ let todayEvents = ref([
     {
         id: 4,
         type: 2,
-        name: "日历002",
+        name: "羽毛球",
         place: "体育馆",
         content: null,
         startTime: "2024-06-01T18:00:00",
@@ -120,6 +128,36 @@ let today = getCurrentDate();
 console.log(today);
 const startTime = today + 'T' + '00:00:00';
 const endTime = today + 'T' + '23:59:59';
+
+const eventType = (type) => {
+    switch (type) {
+        case 1:
+            return '课程';
+        case 2:
+            return '运动';
+        case 3:
+            return '图书馆';
+        case 4:
+            return '其他';
+        default:
+            return '未知';
+    }
+}
+
+const getCardClass = (type) => {
+    switch (type) {
+        case 1:
+            return 'type1';
+        case 2:
+            return 'type2';
+        case 3:
+            return 'type3';
+        case 4:
+            return 'type4';
+        default:
+            return '';
+    }
+};
 
 const affairList = async (type, name, place, content, startTime, endTime) => {
     let params = {
@@ -151,4 +189,20 @@ const showEventDetail = (event) => {
 
 
 <style scoped>
+.type1 {
+    @apply
+    bg-cyan-200;
+}
+.type2 {
+    @apply
+    bg-amber-100;
+}
+.type3 {
+    @apply
+    bg-green-100;
+}
+.type4 {
+    @apply
+    bg-gray-200;
+}
 </style>
