@@ -102,7 +102,7 @@ const eventType = (type) => {
         case 4:
             return '其他';
         default:
-            return '未知';
+            return '其他';
     }
 }
 
@@ -117,7 +117,7 @@ const getCardClass = (type) => {
         case 4:
             return 'type4';
         default:
-            return '';
+            return 'type4';
     }
 };
 
