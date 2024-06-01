@@ -10,11 +10,20 @@ export const hello = () => {
 }
 
 //事务条件查询
-export const getAffairs = (affair) => {
+export const getAffairs = () => {
     //const tokenStore = useTokenStore();
     //在pinia中定义的响应式数据,都不需要.value
     //return request.get('/category',{headers:{'Authorization':tokenStore.token}})
-    return request.get('/affairs', affair)
+    return request.get('/affairs')
+}
+
+export const getAffairs2 = (type, name, place, content, startTime, endTime) => {
+    //const tokenStore = useTokenStore();
+    //在pinia中定义的响应式数据,都不需要.value
+    //return request.get('/category',{headers:{'Authorization':tokenStore.token}})
+    console.log("affair2:");
+    console.log(type, name, place, content, startTime, endTime);
+    return request.get('/affairs', type, name, place, content, startTime, endTime)
 }
 
 //事务添加

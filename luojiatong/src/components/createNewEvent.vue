@@ -12,27 +12,15 @@
 
             <el-form-item label="时间">
                 <el-col :span="11">
-                    <el-date-picker
-                        v-model="form.startTime"
-                        type="datetime"
-                        placeholder="开始时间"
-                        format="YYYY-MM-DD HH:mm:ss"
-                        value-format="YYYY-MM-DD HH:mm:ss"
-                        style="width: 100%"
-                    />
+                    <el-date-picker v-model="form.startTime" type="datetime" placeholder="开始时间"
+                        format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
                 </el-col>
                 <el-col :span="2" class="text-center">
                     <span class="text-gray-500">-</span>
                 </el-col>
                 <el-col :span="11">
-                    <el-date-picker
-                        v-model="form.endTime"
-                        type="datetime"
-                        placeholder="结束时间"
-                        format="YYYY-MM-DD HH:mm:ss"
-                        value-format="YYYY-MM-DD HH:mm:ss"
-                        style="width: 100%"
-                    />
+                    <el-date-picker v-model="form.endTime" type="datetime" placeholder="结束时间"
+                        format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
                 </el-col>
             </el-form-item>
 
@@ -95,14 +83,16 @@ const form = reactive({
 //     console.log('submit!')
 // }
 
-const onSubmit = async (form)=>{
+const onSubmit = async (form) => {
+    form.startTime = form.startTime.split(" ").join("T");
+    form.endTime= form.endTime.split(" ").join("T");
     console.log(form)
     //调用接口
-    
+
     let result = await AddAffair(form);
     console.log(result)
 
-    ElMessage.success(result.msg? result.msg:'添加成功');
+    ElMessage.success(result.msg ? result.msg : '添加成功');
     console.log(result)
 }
 

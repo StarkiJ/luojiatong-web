@@ -60,7 +60,7 @@
 <script setup>
 import { ref } from 'vue';
 import { getAffairs } from '@/api/affairs.js';
-import { getEventsByDate } from '@/components/showEventDetail.js';
+//import { getEventsByDate } from '@/components/showEventDetail.js';
 
 // const affairs = ref([
 //     {
@@ -90,8 +90,8 @@ let affairs = ref([
         name: "001",
         place: "图",
         content: "学习",
-        startTime: "2024-05-21T15:00:00",
-        endTime: "2024-05-21T17:00:00"
+        startTime: "2024-06-21T15:00:00",
+        endTime: "2024-06-21T17:00:00"
     },
     {
         id: 4,
@@ -99,8 +99,8 @@ let affairs = ref([
         name: "002",
         place: "体育馆",
         content: null,
-        startTime: "2024-05-23T15:00:00",
-        endTime: "2024-05-23T17:00:00"
+        startTime: "2024-06-23T15:00:00",
+        endTime: "2024-06-23T17:00:00"
     },
 ])
 
@@ -113,48 +113,39 @@ const showEventDetail = (event) => {
 };
 
 //获取事务列表数据
-// const affairList = async (type, name, place, content, startTime, endTime) => {
-//     let params = {
-//         type: type,
-//         name: name,
-//         place: place,
-//         content: content,
-//         startTime: startTime,
-//         endTime: endTime
-//     }
-//     // console.log("before: ");
-//     // console.log(affairs.value);
-//     //console.log(params);
-//     let result = await getAffairs(params);
-//     // console.log("r: ");
-//     // console.log(result);
+const affairList = async () => {
+    // console.log("before: ");
+    // console.log(affairs.value);
+    let result = await getAffairs();
+    // console.log("r: ");
+    // console.log(result);
 
-//     //渲染视图
-//     affairs.value = result.data;
-//     // console.log("a: ");
-//     // console.log(affairs.value);
-// }
-// affairList(null, null, null, null, null, null);
+    //渲染视图
+    affairs.value = result.data;
+    // console.log("a: ");
+    // console.log(affairs.value);
+}
+affairList();
 
 
 // 获取指定日期的事件
-// const getEventsByDate = async (date) => {
-//     console.log(date);
-//     console.log(affairs.value.filter(event => comp(event, date)));
-//     return affairs.value.filter(event => comp(event, date));
-// };
+const getEventsByDate = (date) => {
+    // console.log(date);
+    // console.log(affairs.value.filter(event => comp(event, date)));
+    return affairs.value.filter(event => comp(event, date));
+};
 
-// const comp = (event, date) => {
-//     const start = date + 'T' + '00:00:00';
-//     const end = date + 'T' + '23:59:59';
-//     console.log(event);
-//     // console.log(Date.parse(event.endTime));
-//     // console.log(Date.parse(start));
-//     // console.log(Date.parse(event.startTime));
-//     // console.log(Date.parse(end));
-//     console.log((Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end)));
-//     return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
-// }
+const comp = (event, date) => {
+    const start = date + 'T' + '00:00:00';
+    const end = date + 'T' + '23:59:59';
+    //console.log(event);
+    // console.log(Date.parse(event.endTime));
+    // console.log(Date.parse(start));
+    // console.log(Date.parse(event.startTime));
+    // console.log(Date.parse(end));
+    //console.log((Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end)));
+    return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
+}
 </script>
 
 <style scoped>

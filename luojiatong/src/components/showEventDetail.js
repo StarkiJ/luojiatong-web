@@ -141,19 +141,19 @@ helloTry();
 // };
 
 // 获取指定日期的事件
-export const getEventsByDate = (date) => {
-    console.log(date);
-    return events.filter(event => comp(event, date)===true);
-};
+// export const getEventsByDate = (date) => {
+//     console.log(date);
+//     return events.filter(event => comp(event, date)===true);
+// };
 
-const comp = (event, date) => {
-    const start = date + 'T' + '00:00:00';
-    const end = date + 'T' + '23:59:59';
-    console.log(event);
-    // console.log(Date.parse(event.endTime));
-    // console.log(Date.parse(start));
-    // console.log(Date.parse(event.startTime));
-    // console.log(Date.parse(end));
-    console.log((Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end)));
-    return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
-}
+// const comp = (event, date) => {
+//     const start = date + 'T' + '00:00:00';
+//     const end = date + 'T' + '23:59:59';
+//     console.log(event);
+//     // console.log(Date.parse(event.endTime));
+//     // console.log(Date.parse(start));
+//     // console.log(Date.parse(event.startTime));
+//     // console.log(Date.parse(end));
+//     console.log((Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end)));
+//     return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
+// }
