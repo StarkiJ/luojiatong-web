@@ -11,9 +11,6 @@ import Login from '~/pages/login.vue'
 
 const routes = [{
     path:"/",
-    component:Index
-},{
-    path:"/homepage",
     component:Homepage,
     name:'Homepage',
     mata:{
