@@ -38,6 +38,9 @@
   </script>
   
   <style scoped>
+
+
+
   .common-layout {
       height: 100vh;
       width: 100vw;
@@ -70,6 +73,7 @@
       @apply
       bg-light-100
       flex-1;
+      overflow: hidden;
   }
   
   .el-container {
