@@ -163,6 +163,7 @@ const showEventDetail = (event) => {
 }
 
 .EventInCalendar {
-    @apply bg-teal-100 rounded-default p-1 my-1;
+    @apply 
+    bg-teal-100 rounded-default p-1 my-1;
 }
 </style>
