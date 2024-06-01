@@ -10,11 +10,11 @@
           <Sidebar class="sidebar"/>
           <el-main>
               <el-row :gutter="10" class="homepage-main">
-                  <el-col :xl="8" :lg="16" :md="12" class="left">
+                  <el-col :xl="8" :lg="8" :md="8" class="left">
                       <!-- 左侧内容：待办清单/本日日程 -->   
                       <DayView />
                   </el-col>
-                  <el-col :xl="16" :lg="8" :md="12" class="bg-light-100">
+                  <el-col :xl="16" :lg="16" :md="16" class="bg-light-100">
                       <!-- 右侧内容：月历 -->
                       <MonthView />
                   </el-col>

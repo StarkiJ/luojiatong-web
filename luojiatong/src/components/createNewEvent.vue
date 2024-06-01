@@ -16,10 +16,12 @@
             <el-form-item label="时间">
                 <el-col :span="11">
                     <el-date-picker
-                    v-model="form.startTime"
-                    type="datetime"
-                    placeholder="开始时间"
-                    style="width: 100%"
+                        v-model="form.startTime"
+                        type="datetime"
+                        placeholder="开始时间"
+                        format="YYYY-MM-DD hh:mm:ss"
+                        value-format="YYYY-MM-DD hh:mm:ss"
+                        style="width: 100%"
                     />
                 </el-col>
                 <el-col :span="2" class="text-center">
@@ -27,10 +29,12 @@
                 </el-col>
                 <el-col :span="11">
                     <el-date-picker
-                    v-model="form.endTime"
-                    type="datetime"
-                    placeholder="结束时间"
-                    style="width: 100%"
+                        v-model="form.endTime"
+                        type="datetime"
+                        placeholder="结束时间"
+                        format="YYYY-MM-DD hh:mm:ss"
+                        value-format="YYYY-MM-DD hh:mm:ss"
+                        style="width: 100%"
                     />
                 </el-col>
             </el-form-item>
@@ -78,6 +82,8 @@
 
     const onSubmit = () => {
         console.log('submit!')
+        console.log('Start Time:', form.startTime.split(" ").join("T"))
+        console.log('End Time:', form.startTime.split(" ").join("T"))
     }
 
 </script>
