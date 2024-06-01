@@ -113,10 +113,19 @@ const showEventDetail = (event) => {
 };
 
 //获取事务列表数据
-const affairList = async () => {
+const affairList = async (type, name, place, content, startTime, endTime) => {
+    let params = {
+        type: type,
+        name: name,
+        place: place,
+        content: content,
+        startTime: startTime,
+        endTime: endTime
+    }
     // console.log("before: ");
     // console.log(affairs.value);
-    let result = await getAffairs();
+    //console.log(params);
+    let result = await getAffairs(params);
     // console.log("r: ");
     // console.log(result);
 

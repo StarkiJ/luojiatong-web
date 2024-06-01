@@ -77,7 +77,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { getAffairs2 } from '@/api/affairs.js';
+import { getAffairs } from '@/api/affairs.js';
 //import { events } from './showEventDetail.js';
 
 
@@ -122,7 +122,16 @@ const startTime = today + 'T' + '00:00:00';
 const endTime = today + 'T' + '23:59:59';
 
 const affairList = async (type, name, place, content, startTime, endTime) => {
-    let result = await getAffairs2(type, name, place, content, startTime, endTime);
+    let params = {
+        type: type,
+        name: name,
+        place: place,
+        content: content,
+        startTime: startTime,
+        endTime: endTime
+    }
+    console.log(params);
+    let result = await getAffairs(params);
     console.log("r: ");
     console.log(result);
 
@@ -131,7 +140,7 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
     // console.log("a: ");
     // console.log(todayEvents.value);
 }
-affairList(2, null, null, null, startTime, endTime);
+affairList(null, null, null, null, startTime, endTime);
 
 const showEventDetail = (event) => {
     selectedEvent.value = event;

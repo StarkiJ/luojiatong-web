@@ -93,7 +93,6 @@ const onSubmit = async (form) => {
     console.log(result)
 
     ElMessage.success(result.msg ? result.msg : '添加成功');
-    console.log(result)
 }
 
 </script>
