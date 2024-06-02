@@ -59,6 +59,7 @@
 
         <template #footer>
             <div class="dialog-footer">
+                <el-button type="primary" @click="eventDetailVisible = false">编辑</el-button>
                 <el-button @click="eventDetailVisible = false">确定</el-button>
             </div>
         </template>
@@ -123,13 +124,13 @@ const getCardClass = (type) => {
 
 let affairs = ref([
     {
-        id: 12,
-        type: 3,
-        name: "数学",
-        place: "图",
-        content: "学习",
-        startTime: "2024-06-21T15:00:00",
-        endTime: "2024-06-21T17:00:00"
+        id: 12, // ID，由MySQL自动生成
+        type: 3, // 类型，1-课程 2-运动 3-图书馆 4（默认）-其他
+        name: "数学", // 名称，必填
+        place: "图", // 地点
+        content: "学习", // 备注
+        startTime: "2024-06-21T15:00:00", // 开始时间，必填，格式为YYYY-MM-DD HH-mm-ss
+        endTime: "2024-06-21T17:00:00" // 中间的T为SpringBoot自动生成，输出时去掉
     },
     {
         id: 4,
