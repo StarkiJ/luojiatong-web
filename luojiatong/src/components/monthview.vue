@@ -59,15 +59,63 @@
 
         <template #footer>
             <div class="dialog-footer">
-                <el-button type="primary" @click="eventDetailVisible = false">编辑</el-button>
+                <el-button type="danger" @click="onDelete(selectedEvent)">删除</el-button>
+                <el-button type="primary" @click="editEvent(selectedEvent)">编辑</el-button>                
                 <el-button @click="eventDetailVisible = false">确定</el-button>
+            </div>
+        </template>
+    </el-dialog>
+    
+    <!-- 编辑日程 -->
+    <el-dialog v-model="editEventDialogVisible" title="编辑日程" width="500">
+        <el-form :model="editForm" label-width="auto" style="max-width: 480px">
+            <el-form-item label="名称">
+                <el-input v-model="editForm.name" />
+            </el-form-item>
+
+            <el-form-item label="时间">
+                <el-col :span="11">
+                    <el-date-picker v-model="editForm.startTime" type="datetime" placeholder="开始时间"
+                        format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+                </el-col>
+                <el-col :span="2" class="text-center">
+                    <span class="text-gray-500">-</span>
+                </el-col>
+                <el-col :span="11">
+                    <el-date-picker v-model="editForm.endTime" type="datetime" placeholder="结束时间"
+                        format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" style="width: 100%" />
+                </el-col>
+            </el-form-item>
+
+            <el-form-item label="类型">
+                <el-select v-model="editForm.type">
+                    <el-option label="课程" value="1" />
+                    <el-option label="运动" value="2" />
+                    <el-option label="图书馆" value="3" />
+                    <el-option label="其他" value="4" />
+                </el-select>
+            </el-form-item>
+
+            <el-form-item label="地点">
+                <el-input v-model="editForm.place" />
+            </el-form-item>
+
+            <el-form-item label="备注">
+                <el-input v-model="editForm.content" type="textarea" />
+            </el-form-item>
+        </el-form>
+
+        <template #footer>
+            <div class="dialog-footer">
+                <el-button type="primary" @click="onEditSubmit(editForm)">保存</el-button>
+                <el-button @click="editEventDialogVisible = false">取消</el-button>
             </div>
         </template>
     </el-dialog>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { getAffairs } from '@/api/affairs.js';
 //import { getEventsByDate } from '@/components/showEventDetail.js';
 
@@ -198,6 +246,38 @@ const comp = (event, date) => {
 const showTime=(time)=>{
     return time.split("T").join(" ");
 }
+
+const editEventDialogVisible = ref(false)
+
+const editForm = reactive({
+    type: "",
+    name: "",
+    place: "",
+    content: "",
+    startTime: "",
+    endTime: ""
+})
+
+const editEvent = (event) => {
+    editForm.type = event.type
+    editForm.name = event.name
+    editForm.place = event.place
+    editForm.content = event.content
+    editForm.startTime = event.startTime
+    editForm.endTime = event.endTime
+    editEventDialogVisible.value = true
+}
+
+const onEditSubmit = async (editForm) => {
+    editForm.startTime = editForm.startTime.split(" ").join("T");
+    editForm.endTime = editForm.endTime.split(" ").join("T");
+    console.log(editForm)
+}
+
+const onDelete = async (event) => {
+    console.log("删除日程id: ", event.id)
+}
+
 
 </script>
 
