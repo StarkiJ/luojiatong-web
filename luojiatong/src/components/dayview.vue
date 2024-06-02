@@ -276,6 +276,7 @@ const onEditSubmit = async (editForm) => {
 }
 
 const onDelete = async (event) => {
+    console.log(event)
     let ids = [];
     let names = [];
     let result;
@@ -285,13 +286,17 @@ const onDelete = async (event) => {
     else {
         ids.push(event.id);
     }
-    console.log("删除日程id: ", ids)
-    result = await DeleteAffair(ids);
-    console.log(result)
-
-    console.log("删除课程name: ", names)
-    result = await DeleteCourse(names);
-    console.log(result)
+    
+    if (ids.length != 0) {
+        console.log("删除日程id: ", ids)
+        result = await DeleteAffair(ids);
+        console.log(result)
+    }
+    if (names.length != 0) {
+        console.log("删除课程name: ", names)
+        result = await DeleteCourse(names);
+        console.log(result)
+    }
 
     ElMessage.success(result.msg ? result.msg : '删除成功');
     location.reload();
