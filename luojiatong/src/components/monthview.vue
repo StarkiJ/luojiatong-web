@@ -288,7 +288,7 @@ const onEditSubmit = async (editForm) => {
 
 const onDelete = async (event) => {
     console.log(event)
-    let ids = [0,];
+    let ids = [];
     let names = [];
     let result;
     if (event.type == 1) {
@@ -297,7 +297,7 @@ const onDelete = async (event) => {
     else {
         ids.push(event.id);
     }
-    
+
     if (ids.length != 0) {
         console.log("删除日程id: ", ids)
         result = await DeleteAffair(ids);
