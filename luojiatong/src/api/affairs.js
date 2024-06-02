@@ -14,8 +14,6 @@ export const getAffairs = (params) => {
     //const tokenStore = useTokenStore();
     //在pinia中定义的响应式数据,都不需要.value
     //return request.get('/category',{headers:{'Authorization':tokenStore.token}})
-    console.log("affair2:");
-    console.log(params);
     return request.get('/affairs', {params:params})
 }
 
@@ -25,11 +23,11 @@ export const AddAffair = (affair) => {
 }
 
 //事务修改
-export const articleCategoryUpdateService = (categoryData) => {
-    return request.put('/affairs', categoryData)
+export const UpdateAffair = (affair) => {
+    return request.put('/affairs', affair)
 }
 
 //事务删除
-export const articleCategoryDeleteService = (id) => {
-    return request.delete('/affairs?id=' + id)
+export const DeleteAffair = (ids) => {
+    return request.delete('/affairs/' + ids)
 }

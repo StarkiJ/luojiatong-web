@@ -23,8 +23,9 @@
                                     <el-icon style="vertical-align: middle">
                                         <Clock />
                                     </el-icon>
-                                    <span style="vertical-align: middle" class='p-2'>{{ showTime(event.startTime )}} - {{
-                                        showTime(event.endTime) }}</span>
+                                    <span style="vertical-align: middle" class='p-2'>{{ showTime(event.startTime) }} -
+                                        {{
+                                            showTime(event.endTime) }}</span>
                                 </div>
                                 <div class='p-1'>
                                     <el-icon style="vertical-align: middle">
@@ -134,7 +135,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
-import { getAffairs } from '@/api/affairs.js';
+import { DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
+import { ElMessage } from 'element-plus'
 //import { events } from './showEventDetail.js';
 
 
@@ -217,15 +219,13 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
         startTime: startTime,
         endTime: endTime
     }
-    console.log(params);
+    // console.log(params);
     let result = await getAffairs(params);
-    console.log("r: ");
-    console.log(result);
+    // console.log("result: ");
+    // console.log(result);
 
     //渲染视图
     todayEvents.value = result.data;
-    // console.log("a: ");
-    // console.log(todayEvents.value);
 }
 affairList(null, null, null, null, startTime, endTime);
 
@@ -234,14 +234,15 @@ const showEventDetail = (event) => {
     eventDetailVisible.value = true;
 };
 
-const showTime=(time)=>{
+const showTime = (time) => {
     return time.split("T").join(" ");
 }
 
 const editEventDialogVisible = ref(false)
 
 const editForm = reactive({
-    type: "",
+    id: 0,
+    type: 0,
     name: "",
     place: "",
     content: "",
@@ -250,6 +251,7 @@ const editForm = reactive({
 })
 
 const editEvent = (event) => {
+    editForm.id = event.id
     editForm.type = event.type.value
     editForm.name = event.name
     editForm.place = event.place
@@ -263,10 +265,25 @@ const onEditSubmit = async (editForm) => {
     editForm.startTime = editForm.startTime.split(" ").join("T");
     editForm.endTime = editForm.endTime.split(" ").join("T");
     console.log(editForm)
+
+    //调用接口
+    let result = await UpdateAffair(editForm);
+    console.log(result)
+
+    ElMessage.success(result.msg ? result.msg : '添加成功');
+    //affairList(null, null, null, null, startTime, endTime);
+    this.$router.go(0);
 }
 
 const onDelete = async (event) => {
-    console.log("删除日程id: ", event.id)
+    let ids = [];
+    ids.push(event.id);
+    console.log("删除日程id: ", ids)
+    let result = await DeleteAffair(ids);
+    console.log(result)
+
+    ElMessage.success(result.msg ? result.msg : '删除成功');
+    location.reload();
 }
 
 </script>
@@ -274,19 +291,18 @@ const onDelete = async (event) => {
 
 <style scoped>
 .type1 {
-    @apply
-    bg-cyan-200;
+    @apply bg-cyan-200;
 }
+
 .type2 {
-    @apply
-    bg-amber-100;
+    @apply bg-amber-100;
 }
+
 .type3 {
-    @apply
-    bg-green-100;
+    @apply bg-green-100;
 }
+
 .type4 {
-    @apply
-    bg-gray-200;
+    @apply bg-gray-200;
 }
 </style>

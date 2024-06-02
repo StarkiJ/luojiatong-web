@@ -60,12 +60,12 @@
         <template #footer>
             <div class="dialog-footer">
                 <el-button type="danger" @click="onDelete(selectedEvent)">删除</el-button>
-                <el-button type="primary" @click="editEvent(selectedEvent)">编辑</el-button>                
+                <el-button type="primary" @click="editEvent(selectedEvent)">编辑</el-button>
                 <el-button @click="eventDetailVisible = false">确定</el-button>
             </div>
         </template>
     </el-dialog>
-    
+
     <!-- 编辑日程 -->
     <el-dialog v-model="editEventDialogVisible" title="编辑日程" width="500">
         <el-form :model="editForm" label-width="auto" style="max-width: 480px">
@@ -116,7 +116,8 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
-import { getAffairs } from '@/api/affairs.js';
+import { DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
+import { ElMessage } from 'element-plus'
 //import { getEventsByDate } from '@/components/showEventDetail.js';
 
 // const affairs = ref([
@@ -243,14 +244,15 @@ const comp = (event, date) => {
     return (Date.parse(event.endTime) >= Date.parse(start) && Date.parse(event.startTime) <= Date.parse(end));
 }
 
-const showTime=(time)=>{
+const showTime = (time) => {
     return time.split("T").join(" ");
 }
 
 const editEventDialogVisible = ref(false)
 
 const editForm = reactive({
-    type: "",
+    id: 0,
+    type: 0,
     name: "",
     place: "",
     content: "",
@@ -259,6 +261,7 @@ const editForm = reactive({
 })
 
 const editEvent = (event) => {
+    editForm.id = event.id
     editForm.type = event.type
     editForm.name = event.name
     editForm.place = event.place
@@ -272,13 +275,27 @@ const onEditSubmit = async (editForm) => {
     editForm.startTime = editForm.startTime.split(" ").join("T");
     editForm.endTime = editForm.endTime.split(" ").join("T");
     console.log(editForm)
+
+    //调用接口
+    let result = await UpdateAffair(editForm);
+    console.log(result)
+
+    ElMessage.success(result.msg ? result.msg : '修改成功');
+    //affairList();
+    location.reload();
+    //this.$router.go(0);
 }
 
 const onDelete = async (event) => {
-    console.log("删除日程id: ", event.id)
+    let ids=[];
+    ids.push(event.id);
+    console.log("删除日程id: ", ids)
+    let result = await DeleteAffair(ids);
+    console.log(result)
+
+    ElMessage.success(result.msg ? result.msg : '删除成功');
+    location.reload();
 }
-
-
 </script>
 
 <style scoped>
@@ -287,28 +304,22 @@ const onDelete = async (event) => {
 }
 
 .EventInCalendar {
-    @apply 
-    bg-teal-100 rounded-default p-1 my-1;
+    @apply bg-teal-100 rounded-default p-1 my-1;
 }
 
 .type1 {
-    @apply
-    bg-cyan-200
-    rounded-default p-1 my-1;
+    @apply bg-cyan-200 rounded-default p-1 my-1;
 }
+
 .type2 {
-    @apply
-    bg-amber-100
-    rounded-default p-1 my-1;
+    @apply bg-amber-100 rounded-default p-1 my-1;
 }
+
 .type3 {
-    @apply
-    bg-green-100
-    rounded-default p-1 my-1;
+    @apply bg-green-100 rounded-default p-1 my-1;
 }
+
 .type4 {
-    @apply
-    bg-gray-200
-    rounded-default p-1 my-1;
+    @apply bg-gray-200 rounded-default p-1 my-1;
 }
 </style>
