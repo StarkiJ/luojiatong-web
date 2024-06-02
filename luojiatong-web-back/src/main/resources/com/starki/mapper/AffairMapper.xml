@@ -41,6 +41,20 @@
         </foreach>
     </delete>
 
+    <!--    <delete id="delete">-->
+    <!--        <foreach collection="ids" item="id" separator=";">-->
+    <!--            DELETE FROM affair-->
+    <!--            WHERE-->
+    <!--            <if test="(select type from affair where id = #{id}) == 1">-->
+    <!--                name = (SELECT name FROM affair WHERE id = #{id}) AND type = 1-->
+    <!--            </if>-->
+    <!--            <if test="(select type from affair where id = #{id}) != 1">-->
+    <!--                id = #{id}-->
+    <!--            </if>-->
+    <!--        </foreach>-->
+    <!--    </delete>-->
+
+
     <!--更新事务-->
     <update id="update">
         update affair
@@ -66,5 +80,15 @@
         </set>
         where id = #{id}
     </update>
+
+    <!--批量删除课程 (name1, name2, name3)-->
+    <delete id="deleteCourse">
+        delete
+        from affair
+        where name in
+        <foreach collection="names" item="name" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </delete>
 
 </mapper>

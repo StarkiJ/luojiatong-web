@@ -84,4 +84,16 @@ public class AffairController {
         affairService.update(affair);
         return Result.success();
     }
+
+    /**
+     * 删除课程
+     * @param names
+     * @return
+     */
+    @DeleteMapping("/course/{names}")
+    public Result deleteCourse(@PathVariable List<String> names) {
+        log.info("删除课程, names: {}", names);
+        affairService.deleteCourse(names);
+        return Result.success();
+    }
 }

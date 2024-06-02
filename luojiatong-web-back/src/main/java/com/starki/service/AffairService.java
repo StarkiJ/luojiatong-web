@@ -37,4 +37,10 @@ public interface AffairService {
      * @param affair
      */
     void update(Affair affair);
+
+    /**
+     * 删除课程
+     * @param names
+     */
+    void deleteCourse(List<String> names);
 }

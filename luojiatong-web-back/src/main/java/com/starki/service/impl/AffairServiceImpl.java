@@ -36,4 +36,9 @@ public class AffairServiceImpl implements AffairService {
     public void update(Affair affair) {
         affairMapper.update(affair);
     }
+
+    @Override
+    public void deleteCourse(List<String> names) {
+        affairMapper.deleteCourse(names);
+    }
 }

@@ -125,6 +125,8 @@
 
 <script setup>
     import { reactive, ref, toRefs, onMounted  } from 'vue'
+    import { AddAffair } from '@/api/affairs';
+    import { ElMessage } from 'element-plus';
     import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
     // 新建日程

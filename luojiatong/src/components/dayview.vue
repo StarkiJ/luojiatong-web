@@ -9,7 +9,7 @@
     <el-scrollbar max-height="400px" style="max-width: 600px">
         <div id="TimeLine">
             <el-timeline style="max-width: 600px">
-                <el-timeline-item placement="top" v-for="(event, index) in todayEvents" :key="index"
+                <el-timeline-item placement="top" v-for="(event, index) in todayEvents.value" :key="index"
                     :timestamp="showTime(event.startTime)" @click.native="showEventDetail(event)">
                     <el-card style="max-width: 480px" :class="getCardClass(event.type)">
                         <el-row>
@@ -135,7 +135,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
-import { DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
+import { DeleteAffair, DeleteCourse, UpdateAffair, getAffairs } from '@/api/affairs.js';
 import { ElMessage } from 'element-plus'
 //import { events } from './showEventDetail.js';
 
@@ -252,7 +252,7 @@ const editForm = reactive({
 
 const editEvent = (event) => {
     editForm.id = event.id
-    editForm.type = event.type.value
+    editForm.type = event.type
     editForm.name = event.name
     editForm.place = event.place
     editForm.content = event.content
@@ -277,9 +277,20 @@ const onEditSubmit = async (editForm) => {
 
 const onDelete = async (event) => {
     let ids = [];
-    ids.push(event.id);
+    let names = [];
+    let result;
+    if (event.type == 1) {
+        names.push(event.name);
+    }
+    else {
+        ids.push(event.id);
+    }
     console.log("删除日程id: ", ids)
-    let result = await DeleteAffair(ids);
+    result = await DeleteAffair(ids);
+    console.log(result)
+
+    console.log("删除课程name: ", names)
+    result = await DeleteCourse(names);
     console.log(result)
 
     ElMessage.success(result.msg ? result.msg : '删除成功');

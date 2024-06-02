@@ -116,7 +116,7 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
-import { DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
+import { DeleteCourse, DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
 import { ElMessage } from 'element-plus'
 //import { getEventsByDate } from '@/components/showEventDetail.js';
 
@@ -287,10 +287,22 @@ const onEditSubmit = async (editForm) => {
 }
 
 const onDelete = async (event) => {
-    let ids=[];
-    ids.push(event.id);
+    console.log(event)
+    let ids = [0,];
+    let names = ["",];
+    let result;
+    if (event.type == 1) {
+        names.push(event.name);
+    }
+    else {
+        ids.push(event.id);
+    }
+    result = await DeleteAffair(ids);
     console.log("删除日程id: ", ids)
-    let result = await DeleteAffair(ids);
+    console.log(result)
+
+    console.log("删除课程name: ", names)
+    result = await DeleteCourse(names);
     console.log(result)
 
     ElMessage.success(result.msg ? result.msg : '删除成功');
