@@ -116,7 +116,7 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue';
-import { DeleteCourse, DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
+import { hello, DeleteCourse, DeleteAffair, UpdateAffair, getAffairs } from '@/api/affairs.js';
 import { ElMessage } from 'element-plus'
 //import { getEventsByDate } from '@/components/showEventDetail.js';
 
@@ -223,6 +223,13 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
     // console.log(affairs.value);
 }
 affairList();
+
+function helloTry(){
+    hello().then(res => {
+        console.log(res);
+    })
+}
+helloTry();
 
 
 // 获取指定日期的事件
