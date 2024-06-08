@@ -8,6 +8,8 @@ import path from 'node:path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // base: 'D:/WorkSpace/luojiatong-web/luojiatong/dist',
+  base: "./",
   plugins: [
     vue(),
     WindiCSS(),
