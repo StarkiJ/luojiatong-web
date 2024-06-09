@@ -2,7 +2,6 @@ package com.starki.service;
 
 import com.starki.pojo.Affair;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,4 +42,6 @@ public interface AffairService {
      * @param names
      */
     void deleteCourse(List<String> names);
+
+    void listCourse();
 }

@@ -120,4 +120,19 @@ public class AffairController {
         log.info(use);
         return Result.success();
     }
+
+    /**
+     * 查询课表
+     * @return
+     */
+    @GetMapping("/course")
+    public Result listCourse() {
+        long msg = System.currentTimeMillis();
+        log.info("查询课程");
+        affairService.listCourse();
+        log.info("所用时间: ");
+        String use = Long.toString(System.currentTimeMillis() - msg);
+        log.info(use);
+        return Result.success();
+    }
 }
