@@ -36,3 +36,8 @@ export const DeleteAffair = (ids) => {
 export const DeleteCourse = (names) => {
     return request.delete('/affairs/course/' + names)
 }
+
+//课程更新
+export const UpdateCourse = (names) => {
+    return request.get('/affairs/course')
+}

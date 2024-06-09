@@ -22,7 +22,9 @@
             <el-menu-item-group title="课程管理">
                 <el-menu-item index="2-1">
                     <el-icon><School /></el-icon>
-                    <span>导入课表</span>
+                    <span @click="updateCourse()">
+                        导入课表
+                    </span>
                 </el-menu-item>
                 <el-menu-item index="2-2">
                     <el-icon><Plus /></el-icon>
@@ -125,7 +127,7 @@
 
 <script setup>
     import { reactive, ref, toRefs, onMounted  } from 'vue'
-    import { AddAffair } from '@/api/affairs';
+    import { AddAffair, UpdateCourse } from '@/api/affairs';
     import { ElMessage } from 'element-plus';
     import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -151,6 +153,15 @@
         //console.log(result)
 
         ElMessage.success(result.msg ? result.msg : '添加成功');
+        location.reload();
+    }
+
+    const updateCourse = async () => {
+        //调用接口
+        let result = await UpdateCourse();
+        console.log(result)
+
+        ElMessage.success(result.msg ? result.msg : '更新成功');
         location.reload();
     }
 
