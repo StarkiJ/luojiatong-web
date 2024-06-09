@@ -32,7 +32,7 @@ public class AffairController {
     }
 
     /**
-     * 条件查询事务
+     * 任意条件查询事务
      *
      * @param startTime
      * @param endTime
