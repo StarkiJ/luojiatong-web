@@ -9,7 +9,7 @@
     <el-scrollbar max-height="400px" style="max-width: 600px">
         <div id="TimeLine">
             <el-timeline style="max-width: 600px">
-                <el-timeline-item placement="top" v-for="(event, index) in todayEvents.value" :key="index"
+                <el-timeline-item placement="top" v-for="(event, index) in getEvents()" :key="index"
                     :timestamp="showTime(event.startTime)" @click.native="showEventDetail(event)">
                     <el-card style="max-width: 480px" :class="getCardClass(event.type)">
                         <el-row>
@@ -23,9 +23,10 @@
                                     <el-icon style="vertical-align: middle">
                                         <Clock />
                                     </el-icon>
-                                    <span style="vertical-align: middle" class='p-2'>{{ showTime(event.startTime) }} -
-                                        {{
-                                            showTime(event.endTime) }}</span>
+                                    <span style="vertical-align: middle" class='p-2'>
+                                        {{showTime(event.startTime) }} -
+                                        {{showTime(event.endTime) }}
+                                    </span>
                                 </div>
                                 <div class='p-1'>
                                     <el-icon style="vertical-align: middle">
@@ -148,7 +149,7 @@ let todayEvents = ref([
         place: "图",
         content: "学习",
         startTime: "2024-06-01T15:00:00",
-        endTime: "2024-06-01T17:00:00"
+        endTime: "2024-06-20T17:00:00"
     },
     {
         id: 4,
@@ -156,8 +157,8 @@ let todayEvents = ref([
         name: "羽毛球",
         place: "体育馆",
         content: null,
-        startTime: "2024-06-01T18:00:00",
-        endTime: "2024-06-01T19:00:00"
+        startTime: "2024-06-11T18:00:00",
+        endTime: "2024-06-11T19:00:00"
     },
 ])
 
@@ -181,6 +182,7 @@ const startTime = today + 'T' + '00:00:00';
 const endTime = today + 'T' + '23:59:59';
 
 const eventType = (type) => {
+    console.log(type)
     switch (type) {
         case 1:
             return '课程';
@@ -196,6 +198,7 @@ const eventType = (type) => {
 }
 
 const getCardClass = (type) => {
+    console.log(type)
     switch (type) {
         case 1:
             return 'type1';
@@ -219,15 +222,20 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
         startTime: startTime,
         endTime: endTime
     }
-    // console.log(params);
+    console.log(params);
     let result = await getAffairs(params);
     // console.log("result: ");
     // console.log(result);
 
     //渲染视图
     todayEvents.value = result.data;
+    console.log(todayEvents.value)
 }
 affairList(null, null, null, null, startTime, endTime);
+
+const getEvents = () => {
+    return todayEvents.value;
+};
 
 const showEventDetail = (event) => {
     selectedEvent.value = event;
@@ -235,6 +243,7 @@ const showEventDetail = (event) => {
 };
 
 const showTime = (time) => {
+    console.log(time)
     return time.split("T").join(" ");
 }
 
@@ -262,6 +271,7 @@ const editEvent = (event) => {
 }
 
 const onEditSubmit = async (editForm) => {
+    q
     editForm.startTime = editForm.startTime.split(" ").join("T");
     editForm.endTime = editForm.endTime.split(" ").join("T");
     console.log(editForm)
@@ -286,7 +296,7 @@ const onDelete = async (event) => {
     else {
         ids.push(event.id);
     }
-    
+
     if (ids.length != 0) {
         console.log("删除日程id: ", ids)
         result = await DeleteAffair(ids);

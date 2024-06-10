@@ -178,8 +178,8 @@ let affairs = ref([
         name: "数学", // 名称，必填
         place: "图", // 地点
         content: "学习", // 备注
-        startTime: "2024-06-21T15:00:00", // 开始时间，必填，格式为YYYY-MM-DD HH-mm-ss
-        endTime: "2024-06-21T17:00:00" // 中间的T为SpringBoot自动生成，输出时去掉
+        startTime: "2024-06-10T15:00:00", // 开始时间，必填，格式为YYYY-MM-DD HH-mm-ss
+        endTime: "2024-06-10T17:00:00" // 中间的T为SpringBoot自动生成，输出时去掉
     },
     {
         id: 4,
@@ -187,8 +187,8 @@ let affairs = ref([
         name: "羽毛球",
         place: "体育馆",
         content: null,
-        startTime: "2024-06-23T15:00:00",
-        endTime: "2024-06-23T17:00:00"
+        startTime: "2024-06-11T15:00:00",
+        endTime: "2024-06-11T17:00:00"
     },
 ])
 
@@ -224,12 +224,12 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
 }
 affairList();
 
-function helloTry(){
-    hello().then(res => {
-        console.log(res);
-    })
-}
-helloTry();
+// function helloTry(){
+//     hello().then(res => {
+//         console.log(res);
+//     })
+// }
+// helloTry();
 
 
 // 获取指定日期的事件
