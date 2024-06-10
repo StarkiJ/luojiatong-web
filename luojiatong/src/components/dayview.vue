@@ -182,7 +182,6 @@ const startTime = today + 'T' + '00:00:00';
 const endTime = today + 'T' + '23:59:59';
 
 const eventType = (type) => {
-    console.log(type)
     switch (type) {
         case 1:
             return '课程';
@@ -198,7 +197,6 @@ const eventType = (type) => {
 }
 
 const getCardClass = (type) => {
-    console.log(type)
     switch (type) {
         case 1:
             return 'type1';
@@ -222,14 +220,11 @@ const affairList = async (type, name, place, content, startTime, endTime) => {
         startTime: startTime,
         endTime: endTime
     }
-    console.log(params);
+    // console.log(params);
     let result = await getAffairs(params);
-    // console.log("result: ");
-    // console.log(result);
 
     //渲染视图
     todayEvents.value = result.data;
-    console.log(todayEvents.value)
 }
 affairList(null, null, null, null, startTime, endTime);
 
@@ -243,7 +238,6 @@ const showEventDetail = (event) => {
 };
 
 const showTime = (time) => {
-    console.log(time)
     return time.split("T").join(" ");
 }
 
@@ -271,14 +265,11 @@ const editEvent = (event) => {
 }
 
 const onEditSubmit = async (editForm) => {
-    q
     editForm.startTime = editForm.startTime.split(" ").join("T");
     editForm.endTime = editForm.endTime.split(" ").join("T");
-    console.log(editForm)
 
     //调用接口
     let result = await UpdateAffair(editForm);
-    console.log(result)
 
     ElMessage.success(result.msg ? result.msg : '添加成功');
     //affairList(null, null, null, null, startTime, endTime);
