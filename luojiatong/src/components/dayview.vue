@@ -3,7 +3,7 @@
         <el-icon size="25" style="vertical-align: middle">
             <List />
         </el-icon>
-        <span style="vertical-align: middle"> 本日事务</span>
+        <span style="vertical-align: middle"> 本日事务 {{ today }}</span>
     </div>
 
     <el-scrollbar max-height="400px" style="max-width: 600px">
@@ -24,8 +24,14 @@
                                         <Clock />
                                     </el-icon>
                                     <span style="vertical-align: middle" class='p-2'>
-                                        {{showTime(event.startTime) }} -
-                                        {{showTime(event.endTime) }}
+                                        {{ showTime(event.startTime) }} -
+                                    </span>
+                                </div>
+                                <div class='p-1'>
+                                    <el-icon style="vertical-align: middle">
+                                    </el-icon>
+                                    <span style="vertical-align: middle" class='p-2'>
+                                        {{ showTime(event.endTime) }}
                                     </span>
                                 </div>
                                 <div class='p-1'>
@@ -273,7 +279,8 @@ const onEditSubmit = async (editForm) => {
 
     ElMessage.success(result.msg ? result.msg : '添加成功');
     //affairList(null, null, null, null, startTime, endTime);
-    this.$router.go(0);
+    // this.$router.go(0);
+    location.reload();
 }
 
 const onDelete = async (event) => {
